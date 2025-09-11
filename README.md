@@ -5,7 +5,7 @@
    * scripts
 2. Copy repo package directory to your package directory
 3. Copy repo script to your scripts directory
-4. Edit your configuration.yaml file (stored in the /config directory) to include
+4. Edit your configuration.yaml file (stored in the /config directory) to include:
 ```yaml
 homeassistant:
   packages: !include_dir_merge_named packages/
