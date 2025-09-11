@@ -48,4 +48,8 @@ data:
 
 # Notes
 Battery settings can't be changed as the dongle is locked to basic settings (for now).
+## Equipment Used During Development
+<ol>
+<li>Solax X1-G4 Inverter</li>
+<li>TP3.0 - HV10230 Batteries</li>
 
