@@ -1,4 +1,4 @@
-# Solax-Local-Control-Using-REST
+
 # Equipment Used During Development
 <ol>
 <li>Solax X1-G4 Inverter (may not work with other inverters)</li>
