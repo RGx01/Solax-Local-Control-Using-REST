@@ -1,8 +1,7 @@
 
-# Equipment Used During Development
+# Note
 <ol>
-<li>Solax X1-G4 Inverter (may not work with other inverters)</li>
-<li>TP3.0 - HV10230 Batteries</li>
+<li>Solax X1-G4 Inverter (may not work with other inverters as settings and modes may be in different read/set positions)</li>
 </ol>
 
 # Install Instructions
@@ -39,7 +38,16 @@ data:
   mode: 3
   manual_mode: 2
 ```
-
+Sets forced charge start time
+```yaml
+action: script.solax_set_mode_and_settings
+data:
+  settings:
+    forced_charge_start: >-
+      {% set start_time =
+      as_datetime(state_attr('input_datetime.solax_battery_start_charge_time',
+      'timestamp') - 0) %}{{ start_time.hour + start_time.minute * 256 }}
+```
 
 Use other states to control modes and settings
 ```yaml
