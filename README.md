@@ -1,4 +1,10 @@
 # Solax-Local-Control-Using-REST
+# Equipment Used During Development
+<ol>
+<li>Solax X1-G4 Inverter (may not work with other inverters)</li>
+<li>TP3.0 - HV10230 Batteries</li>
+</ol>
+
 # Install Instructions
 1. In your HA /config directory create two directories (if they don't already exist)
    * packages
@@ -175,8 +181,4 @@ message: "No changes required. Mode=X, Manual=Y, Settings=Z"
 
 # Notes
 Battery settings can't be changed as the dongle is locked to basic settings (for now).
-## Equipment Used During Development
-<ol>
-<li>Solax X1-G4 Inverter</li>
-<li>TP3.0 - HV10230 Batteries</li>
 
