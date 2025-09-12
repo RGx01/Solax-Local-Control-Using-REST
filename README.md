@@ -5,12 +5,13 @@
 </ol>
 
 # Install Instructions
-1. In your HA /config directory create two directories (if they don't already exist)
+1. In your Home Assistant /config directory create two directories (if they don't already exist)
    * packages
    * scripts
 2. Copy repo package directory to your package directory
-3. Copy repo script to your scripts directory
-4. Edit your configuration.yaml file (stored in the /config directory) to include:
+3. Edit secrets.yaml to replace YYYYYYYYYY with your registration number (found on the devices page on the solax cloud)
+4. Copy repo script directory to your scripts directory
+5. Edit your configuration.yaml file (stored in the /config directory) to include:
 ```yaml
 homeassistant:
   packages: !include_dir_merge_named packages/
