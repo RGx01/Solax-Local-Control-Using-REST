@@ -81,6 +81,7 @@ Max number of loops can be adjusted, if you need more than 5 something is wrong!
 # Script Notifications
 The script can generate a notification event but you will need an automation to listen for those events. an example (untested)
 ```yaml
+###### An untested automation example of how you can get a persistant notification from the script.
 alias: Notifier
 description: >-
 
