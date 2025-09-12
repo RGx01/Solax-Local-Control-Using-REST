@@ -189,5 +189,5 @@ name: "Solax Set Mode and Settings"
 message: "No changes required. Mode=X, Manual=Y, Settings=Z"
 
 # Notes
-Battery settings can't be changed as the dongle is locked to basic settings (for now).
+Battery heating settings can't be changed as the dongle is locked to basic settings (for now).
 
