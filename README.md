@@ -195,5 +195,6 @@ Battery heating settings can't be changed as the dongle is locked to basic setti
 # Revision Log
 | Version | Date | Files updated |Description |
 |:------|:--------:|:------|:------|
+| v1.2.0  | **13/09/25** | templates.yaml | Tidy up |
 | v1.1.0  | **13/09/25** | All | Added template sensors so they can be viewed in HA <br> removed realtime rest call and secret|
 | v1.0.0  | **12/09/25** | All | Major refactor |
