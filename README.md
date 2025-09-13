@@ -2,10 +2,7 @@
 
 # Note
 - Solax X1-G4 Inverter (may not work with other inverters as settings and modes may be in different read/set positions)
-- For reading live data you'll need these [templates](https://github.com/RGx01/home-assistant-Solax-Zappi-Octopus-Control/blob/main/config/packages/solax_additions/templates.yaml) in my other [repo](https://github.com/RGx01/home-assistant-Solax-Zappi-Octopus-Control) 
-
-
-
+- For reading live data you'll need this [repo](https://github.com/RGx01/Solax-Local-Realtime-Using-REST) or try [dashboard repo](https://github.com/RGx01/home-assistant-Solax-Zappi-Octopus-Control)
 
 # Install Instructions
 1. In your Home Assistant /config directory create two directories (if they don't already exist)
