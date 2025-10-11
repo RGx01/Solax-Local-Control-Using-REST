@@ -195,6 +195,7 @@ Battery heating settings can't be changed as the dongle is locked to basic setti
 # Revision Log
 | Version | Date | Files updated |Description |
 |:------|:--------:|:------|:------|
+| v1.3.3 | **11/10/25**|scripts\solax_set_mode_and_settings.yaml| Bug fix with success and needs_update logic |
 | v1.3.2 | **11/10/25**|scripts\solax_set_mode_and_settings.yaml| Properly fixed bug in for loops that would prevent retrying if settings were not applied correctly |
 | v1.3.1 | **11/10/25**|scripts\solax_set_mode_and_settings.yaml| fixed bug in for loops that would prevent retrying if settings were not applied correctly |
 | v1.3.0 |**7/10/25**|scripts\solax_set_mode_and_settings.yaml <br>templates.yaml<br>sensor.yaml| Increased efficiency of script, set forced update and no cache options, This increases the reliability of the check and confirmation of settings. I discovered that in various circumstances the rest command can return cached responses or ghost responses due to network issues. hopefully now we should get better responses and more effective retries.|

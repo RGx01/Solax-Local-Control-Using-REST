@@ -1,5 +1,6 @@
 ###########################################
 # solax_set_mode_and_settings Script
+# v1.3.4 Bug fix with success and needs_update logic
 # v1.3.2 Bug fix relating to previous bug where I didn't properly add the ns in the used output
 # v1.3.1 Fixed bug in for loops (forgot to add a namespace so, the answer wasn't really being checked after we force update of settings)
 # v1.3.0 Added constants dictionary for persistent timing/config values
@@ -166,7 +167,6 @@ solax_set_mode_and_settings:
                       success: false
     - variables:
         needs_update: >
-          {# Check settings if provided #}
           {% set mismatches = namespace(found=false) %}
           {% if settings is defined %}
             {% for key, val in settings.items() %}
@@ -179,7 +179,8 @@ solax_set_mode_and_settings:
           {% set mode_ok = (mode is not defined)
                             or (mode | int != 3 and current_mode == mode | int and current_manual_mode == 0)
                             or (mode | int == 3 and current_mode == 3 and (manual_mode is not defined or current_manual_mode == manual_mode | int)) %}
-          {{ not (settings_ok and mode_ok) }}
+          {% set result = not (settings_ok and mode_ok) %}
+          {{ result | bool }}
     - choose:
         - conditions:
             - condition: template
@@ -291,20 +292,22 @@ solax_set_mode_and_settings:
                             {% endif %}
                           {% endfor %}
                         {% endif %}
-                        {{ ns.all_settings_ok }}
+
                         {% if mode is defined %}
                           {% if mode | int != 3 %}
-                            {{ cm == mode | int and cm_manual == 0 and ns.all_settings_ok }}
+                            {% set result = (cm == mode | int and cm_manual == 0 and ns.all_settings_ok) %}
                           {% else %}
                             {% if manual_mode is defined %}
-                              {{ cm == 3 and cm_manual == manual_mode | int and ns.all_settings_ok }}
+                              {% set result = (cm == 3 and cm_manual == manual_mode | int and ns.all_settings_ok) %}
                             {% else %}
-                              {{ cm == 3 and ns.all_settings_ok }}
+                              {% set result = (cm == 3 and ns.all_settings_ok) %}
                             {% endif %}
                           {% endif %}
                         {% else %}
-                          {{ ns.all_settings_ok }}
+                          {% set result = ns.all_settings_ok %}
                         {% endif %}
+
+                        {{ result | bool }}
             - choose:
                 - conditions:
                     - condition: template
