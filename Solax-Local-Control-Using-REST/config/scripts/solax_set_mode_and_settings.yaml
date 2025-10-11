@@ -1,5 +1,6 @@
 ###########################################
 # solax_set_mode_and_settings Script
+# v1.3.2 Bug fix relating to previous bug where I didn't properly add the ns in the used output
 # v1.3.1 Fixed bug in for loops (forgot to add a namespace so, the answer wasn't really being checked after we force update of settings)
 # v1.3.0 Added constants dictionary for persistent timing/config values
 # v1.1.0 Improved testing of solax_local_settings in the event of failed api calls
@@ -232,12 +233,24 @@ solax_set_mode_and_settings:
                           - repeat:
                               for_each: "{{ settings.items() | list }}"
                               sequence:
-                                - data:
-                                    "{{ idx_map[repeat.item.0].field }}": "{{ repeat.item.1 }}"
-                                  action: >-
-                                    rest_command.{{ idx_map[repeat.item.0].service }}
-                                - delay:
-                                    seconds: "{{ constants.settings_delay }}"
+                                - choose:
+                                    - conditions:
+                                        - condition: template
+                                          value_template: >-
+                                            {{ (state_attr('sensor.solax_local_settings','Data')[idx_map[repeat.item.0].index] | int) != (repeat.item.1 | int) }}
+                                      sequence:
+                                        - data:
+                                            "{{ idx_map[repeat.item.0].field }}": "{{ repeat.item.1 }}"
+                                          action: >-
+                                            rest_command.{{ idx_map[repeat.item.0].service }}
+                                        - delay:
+                                            seconds: "{{ constants.settings_delay }}"
+                                # - data:
+                                #     "{{ idx_map[repeat.item.0].field }}": "{{ repeat.item.1 }}"
+                                #   action: >-
+                                #     rest_command.{{ idx_map[repeat.item.0].service }}
+                                # - delay:
+                                #     seconds: "{{ constants.settings_delay }}"
                   - repeat:
                       until:
                         - condition: template
@@ -270,7 +283,6 @@ solax_set_mode_and_settings:
                       success: >
                         {% set cm = state_attr('sensor.solax_local_settings','Data')[10] | int %}
                         {% set cm_manual = state_attr('sensor.solax_local_settings','Data')[11] | int %}
-                        {% set all_settings_ok = true %}
                         {% set ns = namespace(all_settings_ok=true) %}
                         {% if settings is defined %}
                           {% for key, val in settings.items() %}
@@ -282,16 +294,16 @@ solax_set_mode_and_settings:
                         {{ ns.all_settings_ok }}
                         {% if mode is defined %}
                           {% if mode | int != 3 %}
-                            {{ cm == mode | int and cm_manual == 0 and all_settings_ok }}
+                            {{ cm == mode | int and cm_manual == 0 and ns.all_settings_ok }}
                           {% else %}
                             {% if manual_mode is defined %}
-                              {{ cm == 3 and cm_manual == manual_mode | int and all_settings_ok }}
+                              {{ cm == 3 and cm_manual == manual_mode | int and ns.all_settings_ok }}
                             {% else %}
-                              {{ cm == 3 and all_settings_ok }}
+                              {{ cm == 3 and ns.all_settings_ok }}
                             {% endif %}
                           {% endif %}
                         {% else %}
-                          {{ all_settings_ok }}
+                          {{ ns.all_settings_ok }}
                         {% endif %}
             - choose:
                 - conditions:
