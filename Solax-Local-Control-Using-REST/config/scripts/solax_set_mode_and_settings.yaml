@@ -1,5 +1,6 @@
 ###########################################
 # solax_set_mode_and_settings Script
+# v1.3.1 Fixed bug in for loops (forgot to add a namespace so, the answer wasn't really being checked after we force update of settings)
 # v1.3.0 Added constants dictionary for persistent timing/config values
 # v1.1.0 Improved testing of solax_local_settings in the event of failed api calls
 #        This only works with the updated sensor and template in package solax_control v1.3.0   
@@ -142,12 +143,12 @@ solax_set_mode_and_settings:
             data:
               entity_id:
                 - sensor.solax_rest_local_settings
+          - delay:
+              seconds: "{{ constants.refresh_delay }}"
           - variables:
               current_mode: "{{ state_attr('sensor.solax_local_settings', 'Data')[10] | int }}"
               current_manual_mode: "{{ state_attr('sensor.solax_local_settings', 'Data')[11] | int }}"
               outer_settings_retry_count: "{{ outer_settings_retry_count + 1 }}"
-          - delay:
-              seconds: "{{ constants.refresh_delay }}"
           - choose:
               - conditions:
                   - condition: template
@@ -247,10 +248,10 @@ solax_set_mode_and_settings:
                           data:
                             entity_id:
                               - sensor.solax_rest_local_settings
-                        - variables:
-                            inner_settings_retry_count: "{{ inner_settings_retry_count + 1 }}"
                         - delay:
                             seconds: "{{ constants.refresh_delay }}"
+                        - variables:
+                            inner_settings_retry_count: "{{ inner_settings_retry_count + 1 }}"
                         - choose:
                             - conditions:
                                 - condition: template
@@ -270,13 +271,15 @@ solax_set_mode_and_settings:
                         {% set cm = state_attr('sensor.solax_local_settings','Data')[10] | int %}
                         {% set cm_manual = state_attr('sensor.solax_local_settings','Data')[11] | int %}
                         {% set all_settings_ok = true %}
+                        {% set ns = namespace(all_settings_ok=true) %}
                         {% if settings is defined %}
                           {% for key, val in settings.items() %}
                             {% if state_attr('sensor.solax_local_settings','Data')[idx_map[key].index] | int != val | int %}
-                              {% set all_settings_ok = false %}
+                              {% set ns.all_settings_ok = false %}
                             {% endif %}
                           {% endfor %}
                         {% endif %}
+                        {{ ns.all_settings_ok }}
                         {% if mode is defined %}
                           {% if mode | int != 3 %}
                             {{ cm == mode | int and cm_manual == 0 and all_settings_ok }}
