@@ -195,6 +195,8 @@ Battery heating settings can't be changed as the dongle is locked to basic setti
 # Revision Log
 | Version | Date | Files updated |Description |
 |:------|:--------:|:------|:------|
+| v1.3.5 | **12/10/25**|scripts\solax_set_mode_and_settings.yaml| Bug fix to prevent premature exit after 1 try if theres a failure setting settings or modes|
+| v1.3.4 | **11/10/25** |scripts\solax_set_mode_and_settings.yaml| Bug fix with success and needs_update logic|
 | v1.3.3 | **11/10/25**|scripts\solax_set_mode_and_settings.yaml| Bug fix with success and needs_update logic |
 | v1.3.2 | **11/10/25**|scripts\solax_set_mode_and_settings.yaml| Properly fixed bug in for loops that would prevent retrying if settings were not applied correctly |
 | v1.3.1 | **11/10/25**|scripts\solax_set_mode_and_settings.yaml| fixed bug in for loops that would prevent retrying if settings were not applied correctly |
