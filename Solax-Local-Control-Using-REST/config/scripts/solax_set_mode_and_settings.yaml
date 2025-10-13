@@ -1,5 +1,6 @@
 ###########################################
 # solax_set_mode_and_settings Script
+# v1.3.6 fixed the timeout check being in the wrong format
 # v1.3.5 Bug fix to prevent premature exit after 1 try if theres a failure setting settings or modes
 # v1.3.4 Bug fix with success and needs_update logic
 # v1.3.2 Bug fix relating to previous bug where I didn't properly add the ns in the used output
@@ -94,7 +95,7 @@ solax_set_mode_and_settings:
             1: 20
             3: 25
         mode_delay: "{{ constants.mode_delays[mode | int] if mode is defined else 0 }}"
-        start_time: "{{ now() }}"
+        start_time: "{{ now()|as_timestamp }}"
         outer_loop: 0
         outer_settings_retry_count: 0
         inner_settings_retry_count: 0
@@ -193,7 +194,7 @@ solax_set_mode_and_settings:
                 until:
                   - condition: template
                     value_template: >
-                      {{ success or outer_loop >= constants.max_loops or (now() - start_time).total_seconds() > constants.timeout_seconds }}
+                      {{ success or outer_loop >= constants.max_loops or (now()|as_timestamp - start_time) > constants.timeout_seconds }}
                 sequence:
                   - variables:
                       outer_loop: "{{ outer_loop + 1 }}"
