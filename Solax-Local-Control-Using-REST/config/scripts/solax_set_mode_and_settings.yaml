@@ -19,10 +19,10 @@
 #   constants:
 #     max_loops
 #     max_settings_retries
-#     refresh_delay
-#     settings_delay
-#     timeout_seconds
-#     mode_delays
+#     refresh_delay - this MUST be greater than the rest timeout in solax_rest_local_settings
+#     settings_delay - gap between each setting being applied
+#     timeout_seconds - Time out for the whole script
+#     mode_delays - give the inverter time to switch between modes
 #
 #   mode_delay      ← calculated from constants.mode_delays[mode]
 #   start_time
@@ -87,9 +87,9 @@ solax_set_mode_and_settings:
         constants:
           max_loops: 5
           max_settings_retries: 5
-          refresh_delay: 6 # this MUST be greater than the rest timeout in solax_rest_local_settings
-          settings_delay: 5
-          timeout_seconds: 300
+          refresh_delay: 7 
+          settings_delay: 8 
+          timeout_seconds: 300 
           mode_delays:
             0: 20
             1: 20
