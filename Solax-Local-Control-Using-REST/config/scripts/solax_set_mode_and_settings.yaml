@@ -87,8 +87,8 @@ solax_set_mode_and_settings:
         constants:
           max_loops: 5
           max_settings_retries: 5
-          refresh_delay: 7 
-          settings_delay: 8 
+          refresh_delay: 10 
+          settings_delay: 11 
           timeout_seconds: 300 
           mode_delays:
             0: 20
