@@ -195,6 +195,7 @@ Battery heating settings can't be changed as the dongle is locked to basic setti
 # Revision Log
 | Version | Date | Files updated |Description |
 |:------|:--------:|:------|:------|
+| v2.0.1 | **05/12/25**| templates.yaml <br> scripts\solax_set_mode_and_settings.yaml <br> sensor.yaml| Minor tweak to templates to remove measurement tag from some entities also forgot to consolidate comments on versions of the yaml in the other files (no code changed)|
 | v2.0.0 | **13/11/25**| scripts\solax_set_mode_and_settings.yaml <br> sensor.yaml| Improved code effieciency so that only relevant changes are applied <br> sensor timeout increased|
 | v1.3.6 | **13/10/25**| scripts\solax_set_mode_and_settings.yaml| Fixed timeout syntax|
 | v1.3.5 | **12/10/25**|scripts\solax_set_mode_and_settings.yaml| Bug fix to prevent premature exit after 1 try if theres a failure setting settings or modes|
